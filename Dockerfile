@@ -21,14 +21,21 @@ RUN apt-get install -y python-software-properties git
 
 RUN add-apt-repository ppa:fkrull/deadsnakes
 RUN add-apt-repository ppa:pitti/postgresql
+RUN add-apt-repository ppa:chris-lea/redis-server 
 
 RUN apt-get update
-RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev
+RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev redis-server memcached
 
 RUN python3.4 -m ensurepip --upgrade
 
 # install some common packages
 RUN pip3.4 install numpy matplotlib certifi psycopg2 redis hiredis
+
+RUN mkdir /etc/service/redis
+ADD redis.sh /etc/service/redis/run
+
+RUN mkdir /etc/service/memcached
+ADD memcached.sh /etc/service/memcached/run
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
