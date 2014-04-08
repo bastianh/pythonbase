@@ -29,7 +29,9 @@ RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev li
 RUN python3.4 -m ensurepip --upgrade
 
 # install some common packages
-RUN pip3.4 install numpy matplotlib certifi psycopg2 redis hiredis
+ADD requirements.txt /tmp/requirements.txt
+RUN pip3.4 install -r /tmp/requirements.txt
+RUN rm /tmp/requirements.txt
 
 RUN mkdir /etc/service/redis
 ADD redis.sh /etc/service/redis/run
