@@ -19,6 +19,7 @@ RUN add-apt-repository ppa:fkrull/deadsnakes
 RUN add-apt-repository ppa:chris-lea/redis-server 
 
 ADD apt.postgresql.org.sh /tmp/apt.postgresql.org.sh
+RUN chmod +x /tmp/apt.postgresql.org.sh
 RUN /tmp/apt.postgresql.org.sh
 RUN rm /tmp/apt.postgresql.org.sh
 
