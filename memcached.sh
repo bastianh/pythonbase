@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec /sbin/setuser www-data /usr/bin/memcached > /dev/null 2>&1
+exec /sbin/setuser memcached /usr/bin/memcached > /dev/null 2>&1

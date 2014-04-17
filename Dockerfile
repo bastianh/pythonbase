@@ -15,8 +15,8 @@ RUN apt-get update
 
 RUN apt-get install -y python-software-properties git
 
-RUN add-apt-repository ppa:fkrull/deadsnakes
-RUN add-apt-repository ppa:chris-lea/redis-server 
+RUN add-apt-repository -y ppa:fkrull/deadsnakes
+RUN add-apt-repository -y ppa:chris-lea/redis-server 
 
 ADD apt.postgresql.org.sh /tmp/apt.postgresql.org.sh
 RUN chmod +x /tmp/apt.postgresql.org.sh
