@@ -35,6 +35,7 @@ RUN rm /tmp/requirements.txt
 
 RUN mkdir /etc/service/redis
 RUN sed -i.bak "s/daemonize yes/daemonize no/g" /etc/redis/redis.conf
+VOLUME ["/var/lib/redis"]
 ADD redis.sh /etc/service/redis/run
 
 RUN mkdir /etc/service/memcached
