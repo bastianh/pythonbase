@@ -13,24 +13,16 @@ CMD ["/sbin/my_init"]
 
 RUN apt-get update
 
-RUN apt-get install -y python-software-properties git
+RUN apt-get install -y git
 
-RUN add-apt-repository -y ppa:fkrull/deadsnakes
-RUN add-apt-repository -y ppa:chris-lea/redis-server 
+RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev redis-server memcached postgresql-client-9.3 python3-pip
 
-ADD apt.postgresql.org.sh /tmp/apt.postgresql.org.sh
-RUN chmod +x /tmp/apt.postgresql.org.sh
-RUN /tmp/apt.postgresql.org.sh
-RUN rm /tmp/apt.postgresql.org.sh
-
-RUN apt-get update
-RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev redis-server memcached postgresql-client-9.3
-
-RUN python3.4 -m ensurepip --upgrade
+#evil .. :/ but freetype headers are not found otherwise
+RUN  cp -ar /usr/include/freetype2/* /usr/local/include/
 
 # install some common packages
 ADD requirements.txt /tmp/requirements.txt
-RUN pip3.4 install -r /tmp/requirements.txt
+RUN pip3 install -r /tmp/requirements.txt
 RUN rm /tmp/requirements.txt
 
 RUN mkdir /etc/service/redis
