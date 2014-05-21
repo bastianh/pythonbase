@@ -1,4 +1,4 @@
-FROM dafire/baseimage-docker
+FROM phusion/baseimage:0.9.10
 
 # Set correct environment variables.
 ENV HOME /root
