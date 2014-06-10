@@ -14,7 +14,12 @@ CMD ["/sbin/my_init"]
 # install python stuff
 
 RUN apt-get update
-RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev python3-pip git software-properties-common
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:nginx/stable
+RUN apt-get update
+RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev python3-pip git 
+RUN apt-get install -y nginx-full 
+
 #evil .. :/ but freetype headers are not found otherwise
 RUN cp -ar /usr/include/freetype2/* /usr/local/include/
 
@@ -24,10 +29,6 @@ RUN rm /tmp/requirements.txt
 
 # add other stuff and services
 
-RUN add-apt-repository -y ppa:nginx/stable
-RUN apt-get update
-
-RUN apt-get install -y nginx-full 
 RUN mkdir /etc/service/nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD nginx.sh /etc/service/nginx/run
