@@ -33,10 +33,6 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD nginx.sh /etc/service/nginx/run
 EXPOSE 80
 
-RUN mkdir /etc/service/flower
-ADD flower.sh /etc/service/flower/run
-EXPOSE 5555
-
 RUN mkdir /etc/service/rabbitmq
 ADD rabbit_enabled_plugins /etc/rabbitmq/enabled_plugins
 ADD rabbitmq.sh /etc/service/rabbitmq/run

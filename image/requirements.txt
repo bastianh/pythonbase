@@ -1,4 +1,4 @@
-numpy==1.9.0
+numpy==1.9.1
 matplotlib==1.4.2
 certifi==14.05.14
 psycopg2==2.5.4
@@ -11,7 +11,7 @@ SQLAlchemy==0.9.8
 celery==3.1.16
 kombu==3.0.23
 billiard==3.3.0.18
-flower==0.7.3
+git+git://github.com/mher/flower.git@be218b#egg=flower
 
 Flask==0.10.1
 Jinja2==2.7.3
