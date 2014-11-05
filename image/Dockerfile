@@ -16,8 +16,8 @@ RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository -y ppa:nginx/stable
 RUN apt-get update
-RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev python3-pip git 
-RUN apt-get install -y nginx-full 
+RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev python3-pip git
+RUN apt-get install -y nginx-full rabbitmq-server
 
 #evil .. :/ but freetype headers are not found otherwise
 RUN cp -ar /usr/include/freetype2/* /usr/local/include/
@@ -32,6 +32,14 @@ RUN mkdir /etc/service/nginx
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ADD nginx.sh /etc/service/nginx/run
 EXPOSE 80
+
+RUN mkdir /etc/service/flower
+ADD flower.sh /etc/service/flower/run
+EXPOSE 5555
+
+RUN mkdir /etc/service/rabbitmq
+ADD rabbit_enabled_plugins /etc/rabbitmq/enabled_plugins
+ADD rabbitmq.sh /etc/service/rabbitmq/run
 
 RUN apt-get install -y redis-server memcached postgresql-client-9.3
 RUN mkdir /etc/service/redis
