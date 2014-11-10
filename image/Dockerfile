@@ -11,10 +11,6 @@ RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 CMD ["/sbin/my_init"]
 
 # install python stuff
-
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository -y ppa:nginx/stable
 RUN apt-get update
 RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev python3-pip git
 RUN apt-get install -y nginx-full rabbitmq-server
@@ -28,11 +24,6 @@ RUN rm /tmp/requirements.txt
 
 # add other stuff and services
 
-RUN mkdir /etc/service/nginx
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-ADD nginx.sh /etc/service/nginx/run
-EXPOSE 80
-
 RUN mkdir /etc/service/rabbitmq
 ADD rabbit_enabled_plugins /etc/rabbitmq/enabled_plugins
 ADD rabbitmq.sh /etc/service/rabbitmq/run
@@ -40,7 +31,7 @@ ADD rabbitmq.sh /etc/service/rabbitmq/run
 RUN apt-get install -y redis-server memcached postgresql-client-9.3
 RUN mkdir /etc/service/redis
 RUN sed -i.bak "s/daemonize yes/daemonize no/g" /etc/redis/redis.conf
-VOLUME ["/var/lib/redis"]
+RUN sed -i.bak2 "s/var\/lib\/redis/app\/lib\/redis/g" /etc/redis/redis.conf
 ADD redis.sh /etc/service/redis/run
 
 RUN mkdir /etc/service/memcached
