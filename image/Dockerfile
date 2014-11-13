@@ -13,7 +13,9 @@ CMD ["/sbin/my_init"]
 # install python stuff
 RUN apt-get update
 RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev python3-pip git
-RUN apt-get install -y nginx-full rabbitmq-server
+RUN apt-get install -y nginx-full rabbitmq-server ruby
+
+RUN gem install --no-ri --no-rdoc sass
 
 #evil .. :/ but freetype headers are not found otherwise
 RUN cp -ar /usr/include/freetype2/* /usr/local/include/
