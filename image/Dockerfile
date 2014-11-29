@@ -14,8 +14,9 @@ CMD ["/sbin/my_init"]
 
 RUN apt-get update
 RUN apt-get install -y python3.4 python3.4-dev libpq-dev g++ libfreetype6-dev libpng-dev python3-pip git
-RUN apt-get install -y rabbitmq-server ruby
+RUN apt-get install -y rabbitmq-server ruby npm nodejs-legacy
 
+RUN npm install -g react-tools
 RUN gem install --no-ri --no-rdoc sass
 
 #evil .. :/ but freetype headers are not found otherwise
